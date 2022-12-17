@@ -11,6 +11,7 @@ public class MenuRepository {
     private static final String MENU_NOT_FOUND_BY_NAME_ERROR = "[ERROR] 입력된 이름에 해당하는 메뉴가 존재하지 않습니다.";
     private static final String MENU_NOT_FOUND_BY_CATEGORY_ERROR = "[ERROR] 입력된 카테고리에 해당하는 메뉴가 존재하지 않습니다.";
     private static final List<Menu> MENUS = new ArrayList<>();
+    private static final MenuRepository INSTANCE = new MenuRepository();
 
     static {
         // 일식: 규동, 우동, 미소시루, 스시, 가츠동, 오니기리, 하이라이스, 라멘, 오코노미야끼
@@ -69,7 +70,14 @@ public class MenuRepository {
         MENUS.add(new Menu(Category.WESTERN, "파니니"));
     }
 
-    public static List<Menu> findAllMenusByNames(List<String> names) {
+    private MenuRepository() {
+    }
+
+    public static MenuRepository getInstance() {
+        return INSTANCE;
+    }
+
+    public List<Menu> findAllMenusByNames(List<String> names) {
         List<Menu> menus = new ArrayList<>();
 
         if (names.size() == 0) {
@@ -83,7 +91,7 @@ public class MenuRepository {
         return menus;
     }
 
-    public static Menu findMenuByName(String name) {
+    public Menu findMenuByName(String name) {
         for (Menu menu : MENUS) {
             if (menu.getName().equals(name)) {
                 return menu;
@@ -93,7 +101,7 @@ public class MenuRepository {
         throw new IllegalArgumentException(MENU_NOT_FOUND_BY_NAME_ERROR);
     }
 
-    public static Menu findRandomMenuByCategory(Category category) {
+    public Menu findRandomMenuByCategory(Category category) {
         List<String> menuNamesByCategory = MENUS.stream()
                 .filter(e -> e.getCategory() == category)
                 .map(Menu::getName)

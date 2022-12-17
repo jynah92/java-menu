@@ -41,11 +41,6 @@ public class Categories {
         return categories.get(day.getIndex());
     }
 
-    @Override
-    public String toString() {
-        return getDayLine() + "\n" + getCategoryLine();
-    }
-
     private String getDayLine() {
         StringBuilder sb = new StringBuilder(PRINT_START + DAY_LINE_TITLE);
 
@@ -68,5 +63,10 @@ public class Categories {
         sb.append(PRINT_END);
 
         return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        return getDayLine() + "\n" + getCategoryLine();
     }
 }

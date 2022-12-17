@@ -1,80 +1,31 @@
 package menu;
 
 import menu.model.domain.*;
-import menu.model.enums.Category;
-import menu.model.enums.Day;
+import menu.model.service.ApplicationService;
 import menu.view.InputView;
 import menu.view.OutputView;
 
 import java.util.List;
 
 public class Application {
+    private static final InputView INPUT_VIEW = InputView.getInstance();
+    private static final OutputView OUTPUT_VIEW = OutputView.getInstance();
+    private static final ApplicationService APP_SERVICE = ApplicationService.getInstance();
+
     public static void main(String[] args) {
         // TODO: 프로그램 구현
-        OutputView.printStartMessage();
+        OUTPUT_VIEW.printStartMessage();
 
-        List<String> coachNames = InputView.inputCoachNames();
-        addCoachesWithMenusCantEat(coachNames);
+        List<String> coachNames = INPUT_VIEW.inputCoachNames();
 
-        Categories categories = new Categories();
-        addRecommendMenusInCoachesByCategories(categories, coachNames);
-
-        OutputView.printResult(categories.toString(), getCoachesLine());
-    }
-
-    private static void addCoachesWithMenusCantEat(List<String> coachNames) {
         for (String coachName : coachNames) {
-            addCoachWithMenusCantEat(coachName);
-        }
-    }
-
-    private static void addCoachWithMenusCantEat(String coachName) {
-        while (true) {
-            try {
-                List<Menu> menusCantEat =
-                        MenuRepository.findAllMenusByNames(InputView.inputMenuNamesCantEat(coachName));
-
-                CoachRepository.addCoach(coachName, menusCantEat);
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
-    private static void addRecommendMenusInCoachesByCategories(Categories categories, List<String> coachNames) {
-        for (Day day : Day.values()) {
-            addRecommendMenusInCoachesByCategory(coachNames, categories.getCategoryByDay(day));
-        }
-    }
-
-    private static void addRecommendMenusInCoachesByCategory(List<String> coachNames, Category category) {
-        for (String coachName : coachNames) {
-            addRecommendMenusInCoachByCategory(category, coachName);
-        }
-    }
-
-    private static void addRecommendMenusInCoachByCategory(Category category, String coachName) {
-        while (true) {
-            Menu menu = MenuRepository.findRandomMenuByCategory(category);
-
-            if (CoachRepository.addRecommendedMenuToCoachByName(menu, coachName)) {
-                break;
-            }
-        }
-    }
-
-    private static String getCoachesLine() {
-        StringBuilder sb = new StringBuilder();
-
-        for (Coach coach : CoachRepository.findAllCoaches()) {
-            sb.append(coach.toString()).append("\n");
+            List<String> menuNamesCantEat = INPUT_VIEW.inputMenuNamesCantEat(coachName);
+            APP_SERVICE.addCoachWithMenusCantEat(menuNamesCantEat, coachName);
         }
 
-        if (sb.length() > 0) {
-            sb.setLength(sb.length() - 1);
-        }
+        Categories categories = APP_SERVICE.getNewCategories();
+        APP_SERVICE.addRecommendMenusInCoachesByCategories(categories, coachNames);
 
-        return sb.toString();
+        OUTPUT_VIEW.printResult(categories.toString(), APP_SERVICE.getCoachesLineForPrint());
     }
 }
