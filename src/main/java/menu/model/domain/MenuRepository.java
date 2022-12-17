@@ -1,12 +1,15 @@
 package menu.model.domain;
 
+import camp.nextstep.edu.missionutils.Randoms;
 import menu.model.enums.Category;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MenuRepository {
     private static final String MENU_NOT_FOUND_BY_NAME_ERROR = "[ERROR] 입력된 이름에 해당하는 메뉴가 존재하지 않습니다.";
+    private static final String MENU_NOT_FOUND_BY_CATEGORY_ERROR = "[ERROR] 입력된 카테고리에 해당하는 메뉴가 존재하지 않습니다.";
     private static final List<Menu> MENUS = new ArrayList<>();
 
     static {
@@ -88,5 +91,16 @@ public class MenuRepository {
         }
 
         throw new IllegalArgumentException(MENU_NOT_FOUND_BY_NAME_ERROR);
+    }
+
+    public static Menu findRandomMenuByCategory(Category category) {
+        List<String> menuNamesByCategory = MENUS.stream()
+                .filter(e -> e.getCategory() == category)
+                .map(Menu::getName)
+                .collect(Collectors.toList());
+
+        return findMenuByName(Randoms.shuffle(menuNamesByCategory).stream()
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(MENU_NOT_FOUND_BY_CATEGORY_ERROR)));
     }
 }

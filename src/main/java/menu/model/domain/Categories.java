@@ -23,7 +23,7 @@ public class Categories {
         List<Category> categoryValues = List.of(Category.values());
 
         while (categories.size() < CATEGORIES_MAX_SIZE) {
-            Category category = categoryValues.get(Randoms.pickNumberInRange(0, categoryValues.size() - 1));
+            Category category = categoryValues.get(Randoms.pickNumberInRange(1, categoryValues.size()) - 1);
 
             if (countCategory(category) < 2) {
                 categories.add(category);
