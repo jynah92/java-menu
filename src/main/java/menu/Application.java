@@ -18,6 +18,8 @@ public class Application {
 
         Categories categories = new Categories();
         addRecommendMenusInCoachesByCategories(categories, coachNames);
+
+        OutputView.printResult(categories.toString(), getCoachesLine());
     }
 
     private static void addCoachesWithMenusCantEat(List<String> coachNames) {
@@ -60,5 +62,19 @@ public class Application {
                 break;
             }
         }
+    }
+
+    private static String getCoachesLine() {
+        StringBuilder sb = new StringBuilder();
+
+        for (Coach coach : CoachRepository.findAllCoaches()) {
+            sb.append(coach.toString()).append("\n");
+        }
+
+        if (sb.length() > 0) {
+            sb.setLength(sb.length() - 1);
+        }
+
+        return sb.toString();
     }
 }
