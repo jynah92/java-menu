@@ -1,5 +1,6 @@
 package menu;
 
+import menu.model.domain.Categories;
 import menu.model.domain.CoachRepository;
 import menu.model.domain.Menu;
 import menu.model.domain.MenuRepository;
@@ -27,5 +28,7 @@ public class Application {
                 }
             }
         }
+
+        Categories categories = new Categories();
     }
 }

@@ -10,17 +10,6 @@ public class MenuRepository {
     private static final List<Menu> MENUS = new ArrayList<>();
 
     static {
-        // 한식: 김밥, 김치찌개, 쌈밥, 된장찌개, 비빔밥, 칼국수, 불고기, 떡볶이, 제육볶음
-        MENUS.add(new Menu(Category.KOREAN, "김밥"));
-        MENUS.add(new Menu(Category.KOREAN, "김치찌개"));
-        MENUS.add(new Menu(Category.KOREAN, "쌈밥"));
-        MENUS.add(new Menu(Category.KOREAN, "된장찌개"));
-        MENUS.add(new Menu(Category.KOREAN, "비빔밥"));
-        MENUS.add(new Menu(Category.KOREAN, "칼국수"));
-        MENUS.add(new Menu(Category.KOREAN, "불고기"));
-        MENUS.add(new Menu(Category.KOREAN, "떡볶이"));
-        MENUS.add(new Menu(Category.KOREAN, "제육볶음"));
-
         // 일식: 규동, 우동, 미소시루, 스시, 가츠동, 오니기리, 하이라이스, 라멘, 오코노미야끼
         MENUS.add(new Menu(Category.JAPANESE, "규동"));
         MENUS.add(new Menu(Category.JAPANESE, "우동"));
@@ -31,6 +20,17 @@ public class MenuRepository {
         MENUS.add(new Menu(Category.JAPANESE, "하이라이스"));
         MENUS.add(new Menu(Category.JAPANESE, "라멘"));
         MENUS.add(new Menu(Category.JAPANESE, "오코노미야끼"));
+
+        // 한식: 김밥, 김치찌개, 쌈밥, 된장찌개, 비빔밥, 칼국수, 불고기, 떡볶이, 제육볶음
+        MENUS.add(new Menu(Category.KOREAN, "김밥"));
+        MENUS.add(new Menu(Category.KOREAN, "김치찌개"));
+        MENUS.add(new Menu(Category.KOREAN, "쌈밥"));
+        MENUS.add(new Menu(Category.KOREAN, "된장찌개"));
+        MENUS.add(new Menu(Category.KOREAN, "비빔밥"));
+        MENUS.add(new Menu(Category.KOREAN, "칼국수"));
+        MENUS.add(new Menu(Category.KOREAN, "불고기"));
+        MENUS.add(new Menu(Category.KOREAN, "떡볶이"));
+        MENUS.add(new Menu(Category.KOREAN, "제육볶음"));
 
         // 중식: 깐풍기, 볶음면, 동파육, 짜장면, 짬뽕, 마파두부, 탕수육, 토마토 달걀볶음, 고추잡채
         MENUS.add(new Menu(Category.CHINESE, "깐풍기"));
