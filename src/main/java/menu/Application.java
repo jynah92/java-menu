@@ -19,13 +19,22 @@ public class Application {
         List<String> coachNames = INPUT_VIEW.inputCoachNames();
 
         for (String coachName : coachNames) {
-            List<String> menuNamesCantEat = INPUT_VIEW.inputMenuNamesCantEat(coachName);
-            APP_SERVICE.addCoachWithMenusCantEat(menuNamesCantEat, coachName);
+            addCoachWithMenusCantEatWithLoop(coachName);
         }
 
         Categories categories = APP_SERVICE.getNewCategories();
         APP_SERVICE.addRecommendMenusInCoachesByCategories(categories, coachNames);
 
         OUTPUT_VIEW.printResult(categories.toString(), APP_SERVICE.getCoachesLineForPrint());
+    }
+
+    private static void addCoachWithMenusCantEatWithLoop(String coachName) {
+        while (true) {
+            List<String> menuNamesCantEat = INPUT_VIEW.inputMenuNamesCantEat(coachName);
+
+            if (APP_SERVICE.addCoachWithMenusCantEat(menuNamesCantEat, coachName)) {
+                break;
+            }
+        }
     }
 }

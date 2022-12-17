@@ -1,11 +1,12 @@
 package menu.model.domain;
 
+import menu.util.exception.CoachNotFoundByNameException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class CoachRepository {
-    public static final String HAS_NO_COACH_NAME_ERROR = "[ERROR] 입력된 이름에 해당하는 코치가 존재하지 않습니다.";
     private static final List<Coach> COACHES = new ArrayList<>();
     private static final CoachRepository INSTANCE = new CoachRepository();
 
@@ -36,6 +37,6 @@ public class CoachRepository {
             }
         }
 
-        throw new IllegalArgumentException(HAS_NO_COACH_NAME_ERROR);
+        throw new CoachNotFoundByNameException();
     }
 }

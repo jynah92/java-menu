@@ -3,6 +3,8 @@ package menu.model.service;
 import menu.model.domain.*;
 import menu.model.enums.Category;
 import menu.model.enums.Day;
+import menu.util.exception.CoachException;
+import menu.util.exception.MenuException;
 
 import java.util.List;
 
@@ -21,17 +23,16 @@ public class ApplicationService {
         return INSTANCE;
     }
 
-    public void addCoachWithMenusCantEat(List<String> menuNamesCantEat, String coachName) {
-        while (true) {
-            try {
-                List<Menu> menusCantEat =
-                        menuRepository.findAllMenusByNames(menuNamesCantEat);
+    public boolean addCoachWithMenusCantEat(List<String> menuNamesCantEat, String coachName) {
+        try {
+            List<Menu> menusCantEat =
+                    menuRepository.findAllMenusByNames(menuNamesCantEat);
 
-                coachRepository.addCoach(coachName, menusCantEat);
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
+            coachRepository.addCoach(coachName, menusCantEat);
+            return true;
+        } catch (MenuException | CoachException e) {
+            System.out.println(e.getMessage());
+            return false;
         }
     }
 
